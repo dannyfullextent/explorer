@@ -573,7 +573,7 @@ app.get('/services', async (req, res) => {
         <tr>
           <th>Name</th>
           <th>Type</th>
-          <th>URL</th>
+          <!--th>URL</th-->
           <th>Availability</th>
           <th>Coordinate System</th>
           <th>Actions</th>
@@ -586,9 +586,9 @@ app.get('/services', async (req, res) => {
     }).join(',');
     html += `
         <tr class="service-row" data-type="${service.type}" data-keyword="${keywords}">
-          <td>${service.name}</td>
+          <td>${service.name}<br><a href="${service.url}" target="_blank">View Source</a></td>
           <td>${service.type}</td>
-          <td><a href="${service.url}" target="_blank">${service.url}</a></td>
+          <!--td><a href="${service.url}" target="_blank">${service.url}</a></td-->
           <td>${service.availability.isAvailable ? `<span style="color: ${getAvailabilityColor(service.availability.responseTime)};">${getAvailabilityStatus(service.availability.responseTime)} (${service.availability.responseTime || 'N/A'} ms)</span>` : 'Unavailable'}</td>
           <td>${service.spatialReference.wkid || service.spatialReference.latestWkid || 'N/A'}</td>
           <td>
@@ -638,3 +638,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Access the service endpoint at http://localhost:${PORT}/services`);
 });
+
