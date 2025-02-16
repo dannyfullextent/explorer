@@ -24,9 +24,9 @@ function getAvailabilityColor(responseTime) {
 }
 function getAvailabilityStatus(responseTime) {
   const color = getAvailabilityColor(responseTime);
-  if (color === 'green') return 'Good';
-  else if (color === 'orange') return 'Warning';
-  else if (color === 'red') return 'Problem';
+  if (color === 'green') return '😊 Good';
+  else if (color === 'orange') return '😟 Warning';
+  else if (color === 'red') return '😭 Problem';
   return 'Available';
 }
 
@@ -330,6 +330,12 @@ app.get('/services', async (req, res) => {
         }
       }
 
+      function updateFormPortalURL() {
+
+      document.getElementById('formPortalURL').value = document.getElementById('portalUrl').value;
+
+      }
+
       // Return filtered services.
       function getFilteredServices() {
         var typeFilter = document.getElementById('type-filter').value;
@@ -525,7 +531,7 @@ app.get('/services', async (req, res) => {
         </button>
         <div class="collapse navbar-collapse" id="navbarContent">
           <form class="d-flex ms-auto" method="GET" action="/services">
-            <input type="hidden" name="portalUrl" value="${portalUrl}">
+            <input id="formPortalURL" type="hidden" name="portalUrl" value="${portalUrl}">
             <button class="btn btn-outline-light" type="submit">Reload Services</button>
           </form>
         </div>
@@ -535,7 +541,7 @@ app.get('/services', async (req, res) => {
       <div class="d-flex flex-wrap align-items-center mb-3">
         <div class="me-3">
           <label for="portalUrl" class="form-label">Portal URL:</label>
-          <input type="text" id="portalUrl" name="portalUrl" class="form-control" value="${portalUrl}">
+          <input type="text" onblur="updateFormPortalURL()" id="portalUrl" name="portalUrl" class="form-control" value="${portalUrl}">
         </div>
         <div class="me-3">
           <label for="type-filter" class="form-label">Filter by Type:</label>
@@ -647,3 +653,4 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(`Access the service endpoint at http://localhost:${PORT}/services`);
 });
+
